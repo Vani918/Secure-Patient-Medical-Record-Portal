@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Secure Patient Medical Record Portal</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f7fa;
+    margin: 0;
+    padding: 20px;
+}
+
+header {
+    background-color: #1e88e5;
+    color: white;
+    padding: 15px;
+    text-align: center;
+    border-radius: 6px;
+}
+
+.container {
+    margin-top: 20px;
+}
+
+/* Cards */
+.card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Timeline */
+.timeline-item {
+    border-left: 4px solid #1e88e5;
+    padding-left: 10px;
+    margin-bottom: 10px;
+}
+
+.lock {
+    color: green;
+    font-weight: bold;
+}
+
+/* Buttons */
+button {
+    padding: 8px 12px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.grant {
+    background-color: #4caf50;
+    color: white;
+}
+
+.revoke {
+    background-color: #e53935;
+    color: white;
+}
+
+.emergency {
+    background-color: #ff9800;
+    color: white;
+    width: 100%;
+}
+
+/* Emergency Modal */
+#emergencyBox {
+    display: none;
+    background: #fff3e0;
+    padding: 15px;
+    border-radius: 6px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.timer {
+    font-size: 18px;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h2>Secure Patient Medical Record Portal</h2>
+    <p>Your data. Your control.</p>
+</header>
+
+<div class="container">
+
+    <!-- Patient Dashboard -->
+    <div class="card">
+        <h3>Patient Dashboard</h3>
+        <p><strong>Name:</strong> John Doe</p>
+        <p><strong>Data Status:</strong> <span class="lock">🔒 Encrypted</span></p>
+        <p>All medical records are protected and accessible only with your consent.</p>
+    </div>
+
+    <!-- Medical History Timeline -->
+    <div class="card">
+        <h3>Medical History</h3>
+
+        <div class="timeline-item">
+            <p><strong>Jan 2024:</strong> Blood Test (General Hospital)</p>
+        </div>
+
+        <div class="timeline-item">
+            <p><strong>Aug 2024:</strong> X-Ray Scan (City Clinic)</p>
+        </div>
+
+        <div class="timeline-item">
+            <p><strong>Dec 2024:</strong> Consultation (Heart Care Center)</p>
+        </div>
+    </div>
+
+    <!-- Access Control -->
+    <div class="card">
+        <h3>Access Control</h3>
+        <p><strong>Hospital:</strong> City Clinic</p>
+        <p>Status: <span id="accessStatus">Access Revoked</span></p>
+
+        <button class="grant" onclick="grantAccess()">Grant Access</button>
+        <button class="revoke" onclick="revokeAccess()">Revoke Access</button>
+    </div>
+
+    <!-- Emergency Access -->
+    <div class="card">
+        <h3>Emergency Access</h3>
+        <p>Enable temporary emergency access during critical situations.</p>
+        <button class="emergency" onclick="startEmergency()">Activate Emergency Access</button>
+
+        <div id="emergencyBox">
+            <p>🆔 Biometric Verification Successful</p>
+            <p>Emergency Access Active</p>
+            <p class="timer" id="timer"></p>
+        </div>
+    </div>
+
+</div>
+
+<script>
+function grantAccess() {
+    document.getElementById("accessStatus").innerText = "Access Granted";
+}
+
+function revokeAccess() {
+    document.getElementById("accessStatus").innerText = "Access Revoked";
+}
+
+function startEmergency() {
+    let time = 30;
+    document.getElementById("emergencyBox").style.display = "block";
+
+    let countdown = setInterval(function() {
+        document.getElementById("timer").innerText = "Time Remaining: " + time + " minutes";
+        time--;
+
+        if (time < 0) {
+            clearInterval(countdown);
+            document.getElementById("emergencyBox").style.display = "none";
+            alert("Emergency access expired");
+        }
+    }, 1000);
+}
+</script>
+
+</body>
+</html>
